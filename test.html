@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload and Management</title>
+</head>
+
+<body>
+    <h1>Upload a File</h1>
+    <form id="uploadForm">
+        <input type="file" id="fileInput" name="file" />
+        <br><br>
+        <button type="button" onclick="uploadFile()">Upload</button>
+    </form>
+
+    <p id="status"></p>
+
+    <h2>Uploaded Files</h2>
+    <ul id="fileList"></ul>
+
+    <script>
+        async function uploadFile() {
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+
+            if (!file) {
+                document.getElementById('status').textContent = 'Please select a file first.';
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('http://127.0.0.1:8080/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                if (response.ok) {
+                    document.getElementById('status').textContent = 'File uploaded successfully!';
+                    loadFileList(); // Reload the file list after upload
+                } else {
+                    document.getElementById('status').textContent = 'File upload failed.';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error uploading file.';
+            }
+        }
+
+        async function loadFileList() {
+            try {
+                const response = await fetch('http://127.0.0.1:8080/list');
+                if (response.ok) {
+                    const files = await response.json();
+                    const fileList = document.getElementById('fileList');
+                    fileList.innerHTML = ''; // Clear current list
+
+                    files.forEach(file => {
+                        const li = document.createElement('li');
+                        const link = document.createElement('a');
+                        link.href = `http://127.0.0.1:8080/download/${encodeURIComponent(file)}`;
+                        link.textContent = file;
+                        link.download = file; // Set the download attribute to download the file
+                        li.appendChild(link);
+                        fileList.appendChild(li);
+                    });
+                } else {
+                    document.getElementById('status').textContent = 'Failed to load file list.';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('status').textContent = 'Error loading file list.';
+            }
+        }
+
+        // Automatically load the file list when the page loads
+        window.onload = loadFileList;
+    </script>
+</body>
+
+</html>
