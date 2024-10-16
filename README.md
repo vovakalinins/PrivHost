@@ -1,4 +1,4 @@
-
+![PrivHost](https://raw.githubusercontent.com/vovakalinins/PrivHost/refs/heads/master/privhost.png)
 # PrivHost
 
 **PrivHost** is a two-part system that enables secure file hosting and automatic folder monitoring. It consists of:
