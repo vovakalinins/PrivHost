@@ -1,4 +1,10 @@
+<<<<<<< HEAD
 ﻿  wintoastlib.cpp
+=======
+﻿  CRUD.cpp
+  FEFolderMonitor.cpp
+  Generating Code...
+>>>>>>> 4012af287fd12d1f7fdbd594512edb42deed8b38
   FEFolderMonitor.vcxproj -> D:\businesses\privhost\FEFolderMonitor\x64\Debug\FEFolderMonitor.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.
