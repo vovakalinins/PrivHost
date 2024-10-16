@@ -5,24 +5,27 @@ use aes_gcm::aead::{Aead, KeyInit}; // Import the KeyInit trait for .new() metho
 use aes_gcm::{Aes256Gcm, Key, Nonce}; // AES-GCM for encryption
 use futures_util::StreamExt as _;
 use rand::Rng;
+use serde::{Deserialize, Serialize};
+use std::fs::Metadata;
 use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
+use std::time::{SystemTime, UNIX_EPOCH};
 use uuid::Uuid;
 
 const ENCRYPTION_KEY: &[u8; 32] = b"ifyouseethisyouhavetosubscribeee"; // 32 bytes
 
 async fn save_file(mut payload: Multipart) -> Result<HttpResponse, Error> {
-    // Make Da cipher
+    // Make cipher
     let key = Key::<Aes256Gcm>::from_slice(ENCRYPTION_KEY); // Fix the generic type and pass a reference
 
     let cipher = Aes256Gcm::new(&key);
 
-    // Iterate over multipart stream
+    // Iterate multipart stream
     while let Some(field) = payload.next().await {
         let mut field = field?;
 
-        // Get filename
+        // filename
         let content_disposition = field.content_disposition();
         let filename = if let Some(fname) = content_disposition.get_filename() {
             sanitize_filename::sanitize(fname)
@@ -30,7 +33,7 @@ async fn save_file(mut payload: Multipart) -> Result<HttpResponse, Error> {
             format!("file_{}", Uuid::new_v4())
         };
 
-        // Generate a random nonce o_o
+        // gen a random nonce
         let nonce = rand::thread_rng().gen::<[u8; 12]>();
 
         // put file content into buffer
@@ -45,7 +48,7 @@ async fn save_file(mut payload: Multipart) -> Result<HttpResponse, Error> {
             .encrypt(Nonce::from_slice(&nonce), buffer.as_ref())
             .map_err(|_| actix_web::error::ErrorInternalServerError("Encryption failed"))?;
 
-        // Ensure uploads directory exists
+        // create if not exists dir
         fs::create_dir_all("./uploads")?;
 
         // Save nonce and ciphertext
@@ -65,7 +68,7 @@ async fn download_file(path: web::Path<String>) -> Result<HttpResponse, Error> {
 
     let filepath = format!("./uploads/{}", sanitize_filename::sanitize(&filename));
 
-    // Check if the file exists
+    // does file exist check
     if !std::path::Path::new(&filepath).exists() {
         return Ok(HttpResponse::NotFound().body("File not found"));
     }
@@ -81,33 +84,39 @@ async fn download_file(path: web::Path<String>) -> Result<HttpResponse, Error> {
     }
     let (nonce_bytes, ciphertext) = contents.split_at(12); // 12 bytes for nonce
 
-    // Use Nonce::from_slice to safely create nonce
+    // safely create nonce
     let nonce = Nonce::from_slice(nonce_bytes);
 
-    // Initialize the cipher
+    // init the cipher
     let key = Key::<Aes256Gcm>::from_slice(ENCRYPTION_KEY);
     let cipher = Aes256Gcm::new(key);
 
-    // Decrypt the data
+    // Decrypt
     let plaintext = cipher
         .decrypt(nonce, ciphertext)
         .map_err(|_| actix_web::error::ErrorInternalServerError("Decryption failed"))?;
 
-    // Return the decrypted file
     Ok(HttpResponse::Ok()
         .content_type("application/octet-stream")
         .body(plaintext))
 }
 
+#[derive(Serialize)]
+struct FileInfo {
+    name: String,
+    size: u64,
+    file_type: String,
+    created: u64,
+}
+
 async fn list_files() -> Result<HttpResponse, Error> {
     let dir_path = "./uploads";
 
-    // Check if the uploads directory exists
+    // does uploads exists
     if !Path::new(dir_path).exists() {
         return Ok(HttpResponse::NotFound().body("Uploads directory not found"));
     }
 
-    // Read directory and collect the list of files
     let mut files = Vec::new();
     for entry in fs::read_dir(dir_path)? {
         let entry = entry?;
@@ -116,13 +125,37 @@ async fn list_files() -> Result<HttpResponse, Error> {
         if path.is_file() {
             if let Some(file_name) = path.file_name() {
                 if let Some(name_str) = file_name.to_str() {
-                    files.push(name_str.to_string());
+                    let metadata = fs::metadata(&path)?;
+
+                    // filesize
+                    let size = metadata.len();
+
+                    // filetype
+                    let file_type = match path.extension() {
+                        Some(ext) => ext.to_string_lossy().into_owned(),
+                        None => String::from("unknown"),
+                    };
+
+                    // filedate
+                    let created = metadata
+                        .created()
+                        .or_else(|_| metadata.modified())
+                        .unwrap_or(SystemTime::UNIX_EPOCH)
+                        .duration_since(UNIX_EPOCH)
+                        .unwrap()
+                        .as_secs();
+
+                    files.push(FileInfo {
+                        name: name_str.to_string(),
+                        size,
+                        file_type,
+                        created,
+                    });
                 }
             }
         }
     }
 
-    // Return the list of files as JSON
     Ok(HttpResponse::Ok().json(files))
 }
 

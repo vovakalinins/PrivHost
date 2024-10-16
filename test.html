@@ -6,6 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>File Upload and Management</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
 </head>
 
 <body>
@@ -19,7 +35,17 @@
     <p id="status"></p>
 
     <h2>Uploaded Files</h2>
-    <ul id="fileList"></ul>
+    <table id="fileListTable">
+        <thead>
+            <tr>
+                <th>File Name</th>
+                <th>Date Created</th>
+                <th>File Type</th>
+                <th>File Size</th>
+            </tr>
+        </thead>
+        <tbody id="fileList"></tbody>
+    </table>
 
     <script>
         async function uploadFile() {
@@ -42,7 +68,7 @@
 
                 if (response.ok) {
                     document.getElementById('status').textContent = 'File uploaded successfully!';
-                    loadFileList(); // Reload the file list after upload
+                    loadFileList();
                 } else {
                     document.getElementById('status').textContent = 'File upload failed.';
                 }
@@ -58,16 +84,32 @@
                 if (response.ok) {
                     const files = await response.json();
                     const fileList = document.getElementById('fileList');
-                    fileList.innerHTML = ''; // Clear current list
+                    fileList.innerHTML = '';
 
                     files.forEach(file => {
-                        const li = document.createElement('li');
+                        const row = document.createElement('tr');
+
+                        const fileNameCell = document.createElement('td');
                         const link = document.createElement('a');
-                        link.href = `http://127.0.0.1:8080/download/${encodeURIComponent(file)}`;
-                        link.textContent = file;
-                        link.download = file; // Set the download attribute to download the file
-                        li.appendChild(link);
-                        fileList.appendChild(li);
+                        link.href = `http://127.0.0.1:8080/download/${encodeURIComponent(file.name)}`;
+                        link.textContent = file.name;
+                        link.download = file.name;
+                        fileNameCell.appendChild(link);
+
+                        const dateCell = document.createElement('td');
+                        const date = new Date(file.created * 1000);
+                        dateCell.textContent = date.toLocaleString();
+
+                        const typeCell = document.createElement('td');
+                        typeCell.textContent = file.file_type;
+
+                        const sizeCell = document.createElement('td');
+                        sizeCell.textContent = (file.size / 1024).toFixed(2) + ' KB';
+                        row.appendChild(fileNameCell);
+                        row.appendChild(dateCell);
+                        row.appendChild(typeCell);
+                        row.appendChild(sizeCell);
+                        fileList.appendChild(row);
                     });
                 } else {
                     document.getElementById('status').textContent = 'Failed to load file list.';
@@ -77,8 +119,6 @@
                 document.getElementById('status').textContent = 'Error loading file list.';
             }
         }
-
-        // Automatically load the file list when the page loads
         window.onload = loadFileList;
     </script>
 </body>

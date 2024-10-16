@@ -930,6 +930,8 @@ dependencies = [
  "futures-util",
  "rand",
  "sanitize-filename",
+ "serde",
+ "serde_json",
  "tokio",
  "uuid",
 ]
