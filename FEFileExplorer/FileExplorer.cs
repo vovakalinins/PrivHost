@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Uwp.Notifications;
 
@@ -11,6 +12,7 @@ namespace FEFileExplorer
         static ServerCommunicator communicator = new ServerCommunicator();
         public FileExplorer()
         {
+            Directory.CreateDirectory("downloads");
             InitializeComponent();
             _ = communicator.ListFiles(fileListView);
         }

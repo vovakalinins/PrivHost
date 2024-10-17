@@ -1,26 +1,15 @@
 use actix_cors::Cors;
 use actix_multipart::Multipart;
 use actix_web::{web, App, Error, HttpResponse, HttpServer};
-use aes_gcm::aead::{Aead, KeyInit}; // Import the KeyInit trait for .new() method
-use aes_gcm::{Aes256Gcm, Key, Nonce}; // AES-GCM for encryption
 use futures_util::StreamExt as _;
-use rand::Rng;
-use serde::{Deserialize, Serialize};
-use std::fs::Metadata;
+use serde::Serialize;
 use std::fs::{self, File};
 use std::io::{Read, Write};
 use std::path::Path;
 use std::time::{SystemTime, UNIX_EPOCH};
 use uuid::Uuid;
 
-const ENCRYPTION_KEY: &[u8; 32] = b"ifyouseethisyouhavetosubscribeee"; // 32 bytes
-
 async fn save_file(mut payload: Multipart) -> Result<HttpResponse, Error> {
-    // Make cipher
-    let key = Key::<Aes256Gcm>::from_slice(ENCRYPTION_KEY); // Fix the generic type and pass a reference
-
-    let cipher = Aes256Gcm::new(&key);
-
     // Iterate multipart stream
     while let Some(field) = payload.next().await {
         let mut field = field?;
@@ -33,9 +22,6 @@ async fn save_file(mut payload: Multipart) -> Result<HttpResponse, Error> {
             format!("file_{}", Uuid::new_v4())
         };
 
-        // gen a random nonce
-        let nonce = rand::thread_rng().gen::<[u8; 12]>();
-
         // put file content into buffer
         let mut buffer = Vec::new();
         while let Some(chunk) = field.next().await {
@@ -43,24 +29,16 @@ async fn save_file(mut payload: Multipart) -> Result<HttpResponse, Error> {
             buffer.extend_from_slice(&data);
         }
 
-        // Encryptize
-        let ciphertext = cipher
-            .encrypt(Nonce::from_slice(&nonce), buffer.as_ref())
-            .map_err(|_| actix_web::error::ErrorInternalServerError("Encryption failed"))?;
-
         // create if not exists dir
         fs::create_dir_all("./uploads")?;
 
-        // Save nonce and ciphertext
+        // Save file directly
         let filepath = format!("./uploads/{}", filename);
         let mut file = File::create(&filepath)?;
-        file.write_all(&nonce)?;
-        file.write_all(&ciphertext)?;
-
-        println!("Saved encrypted file: {}", filepath);
+        file.write_all(&buffer)?;
     }
 
-    Ok(HttpResponse::Ok().json("File uploaded and encrypted successfully"))
+    Ok(HttpResponse::Ok().body("File uploaded successfully"))
 }
 
 async fn download_file(path: web::Path<String>) -> Result<HttpResponse, Error> {
@@ -78,27 +56,9 @@ async fn download_file(path: web::Path<String>) -> Result<HttpResponse, Error> {
     let mut contents = Vec::new();
     file.read_to_end(&mut contents)?;
 
-    // Split nonce and ciphertext
-    if contents.len() < 12 {
-        return Ok(HttpResponse::InternalServerError().body("Invalid file format"));
-    }
-    let (nonce_bytes, ciphertext) = contents.split_at(12); // 12 bytes for nonce
-
-    // safely create nonce
-    let nonce = Nonce::from_slice(nonce_bytes);
-
-    // init the cipher
-    let key = Key::<Aes256Gcm>::from_slice(ENCRYPTION_KEY);
-    let cipher = Aes256Gcm::new(key);
-
-    // Decrypt
-    let plaintext = cipher
-        .decrypt(nonce, ciphertext)
-        .map_err(|_| actix_web::error::ErrorInternalServerError("Decryption failed"))?;
-
     Ok(HttpResponse::Ok()
         .content_type("application/octet-stream")
-        .body(plaintext))
+        .body(contents))
 }
 
 #[derive(Serialize)]

@@ -3,6 +3,14 @@
   "WorkspaceRootPath": "D:\\businesses\\privhost\\FEFolderMonitor\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A02AEAF1-E740-46F6-A157-1C58288206DA}|FEFolderMonitor.vcxproj|D:\\businesses\\privhost\\FEFolderMonitor\\Encrypter.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A02AEAF1-E740-46F6-A157-1C58288206DA}|FEFolderMonitor.vcxproj|solutionrelative:Encrypter.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A02AEAF1-E740-46F6-A157-1C58288206DA}|FEFolderMonitor.vcxproj|D:\\businesses\\privhost\\FEFolderMonitor\\CRUD.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
+      "RelativeMoniker": "D:0:0:{A02AEAF1-E740-46F6-A157-1C58288206DA}|FEFolderMonitor.vcxproj|solutionrelative:CRUD.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A02AEAF1-E740-46F6-A157-1C58288206DA}|FEFolderMonitor.vcxproj|D:\\businesses\\privhost\\FEFolderMonitor\\FEFolderMonitor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}",
       "RelativeMoniker": "D:0:0:{A02AEAF1-E740-46F6-A157-1C58288206DA}|FEFolderMonitor.vcxproj|solutionrelative:FEFolderMonitor.cpp||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
@@ -19,12 +27,38 @@
             {
               "$type": "Document",
               "DocumentIndex": 0,
+              "Title": "Encrypter.cpp",
+              "DocumentMoniker": "D:\\businesses\\privhost\\FEFolderMonitor\\Encrypter.cpp",
+              "RelativeDocumentMoniker": "Encrypter.cpp",
+              "ToolTip": "D:\\businesses\\privhost\\FEFolderMonitor\\Encrypter.cpp",
+              "RelativeToolTip": "Encrypter.cpp",
+              "ViewState": "AQIAADYAAAAAAAAAAAAAAEYAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-17T16:40:11.792Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "CRUD.cpp",
+              "DocumentMoniker": "D:\\businesses\\privhost\\FEFolderMonitor\\CRUD.cpp",
+              "RelativeDocumentMoniker": "CRUD.cpp",
+              "ToolTip": "D:\\businesses\\privhost\\FEFolderMonitor\\CRUD.cpp",
+              "RelativeToolTip": "CRUD.cpp",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAqwFEAAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
+              "WhenOpened": "2024-10-17T16:25:48.015Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "FEFolderMonitor.cpp",
               "DocumentMoniker": "D:\\businesses\\privhost\\FEFolderMonitor\\FEFolderMonitor.cpp",
               "RelativeDocumentMoniker": "FEFolderMonitor.cpp",
               "ToolTip": "D:\\businesses\\privhost\\FEFolderMonitor\\FEFolderMonitor.cpp",
               "RelativeToolTip": "FEFolderMonitor.cpp",
-              "ViewState": "AQIAAC0AAAAAAAAAAAAAACwAAAAGAAAA",
+              "ViewState": "AQIAAA8AAAAAAAAAAAAAAEEAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000677|",
               "WhenOpened": "2024-10-16T02:48:46.234Z",
               "EditorCaption": ""

@@ -1,3 +1,4 @@
 D:\businesses\privhost\FEFolderMonitor\x64\Debug\libcurl-d.dll
 D:\businesses\privhost\FEFolderMonitor\x64\Debug\zlibd1.dll
 D:\businesses\privhost\FEFolderMonitor\FEFolderMonitor\x64\Debug\FEFolder.73F49AAC.Up2Date
+D:\businesses\privhost\FEFolderMonitor\x64\Debug\libcrypto-3-x64.dll

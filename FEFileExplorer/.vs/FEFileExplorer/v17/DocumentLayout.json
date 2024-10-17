@@ -1,0 +1,87 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\businesses\\privhost\\FEFileExplorer\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|d:\\businesses\\privhost\\fefileexplorer\\decryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|solutionrelative:decryptor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|d:\\businesses\\privhost\\fefileexplorer\\servercommunicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|solutionrelative:servercommunicator.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|d:\\businesses\\privhost\\fefileexplorer\\fileexplorer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|solutionrelative:fileexplorer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|d:\\businesses\\privhost\\fefileexplorer\\fileexplorer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{95083696-8942-43D6-8865-E8BE77CC3F6F}|FEFileExplorer.csproj|solutionrelative:fileexplorer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Decryptor.cs",
+              "DocumentMoniker": "D:\\businesses\\privhost\\FEFileExplorer\\Decryptor.cs",
+              "RelativeDocumentMoniker": "Decryptor.cs",
+              "ToolTip": "D:\\businesses\\privhost\\FEFileExplorer\\Decryptor.cs",
+              "RelativeToolTip": "Decryptor.cs",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAACEAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T17:07:58.71Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ServerCommunicator.cs",
+              "DocumentMoniker": "D:\\businesses\\privhost\\FEFileExplorer\\ServerCommunicator.cs",
+              "RelativeDocumentMoniker": "ServerCommunicator.cs",
+              "ToolTip": "D:\\businesses\\privhost\\FEFileExplorer\\ServerCommunicator.cs",
+              "RelativeToolTip": "ServerCommunicator.cs",
+              "ViewState": "AQIAACMAAAAAAAAAAAAqwEYAAAAJAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T16:25:17.987Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "FileExplorer.cs",
+              "DocumentMoniker": "D:\\businesses\\privhost\\FEFileExplorer\\FileExplorer.cs",
+              "RelativeDocumentMoniker": "FileExplorer.cs",
+              "ToolTip": "D:\\businesses\\privhost\\FEFileExplorer\\FileExplorer.cs",
+              "RelativeToolTip": "FileExplorer.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAgwCUAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T16:23:51.308Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "FileExplorer.cs [Design]",
+              "DocumentMoniker": "D:\\businesses\\privhost\\FEFileExplorer\\FileExplorer.cs",
+              "RelativeDocumentMoniker": "FileExplorer.cs",
+              "ToolTip": "D:\\businesses\\privhost\\FEFileExplorer\\FileExplorer.cs [Design]",
+              "RelativeToolTip": "FileExplorer.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-17T16:23:49.436Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

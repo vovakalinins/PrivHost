@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-﻿  wintoastlib.cpp
-=======
-﻿  CRUD.cpp
-  FEFolderMonitor.cpp
-  Generating Code...
->>>>>>> 4012af287fd12d1f7fdbd594512edb42deed8b38
+﻿  Encrypter.cpp
+D:\businesses\privhost\FEFolderMonitor\Encrypter.cpp(35,45): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+D:\businesses\privhost\FEFolderMonitor\Encrypter.cpp(51,89): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
   FEFolderMonitor.vcxproj -> D:\businesses\privhost\FEFolderMonitor\x64\Debug\FEFolderMonitor.exe
   'pwsh.exe' is not recognized as an internal or external command,
   operable program or batch file.

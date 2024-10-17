@@ -16,3 +16,4 @@ D:\businesses\privhost\FEFileExplorer\bin\Debug\System.ValueTuple.dll
 D:\businesses\privhost\FEFileExplorer\bin\Debug\Microsoft.Toolkit.Uwp.Notifications.pdb
 D:\businesses\privhost\FEFileExplorer\obj\Debug\FEFileExplorer.csproj.SuggestedBindingRedirects.cache
 D:\businesses\privhost\FEFileExplorer\obj\Debug\FEFileExplorer.exe.config
+D:\businesses\privhost\FEFileExplorer\bin\Debug\BouncyCastle.Crypto.dll

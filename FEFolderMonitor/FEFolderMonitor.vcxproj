@@ -130,10 +130,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CRUD.cpp" />
+    <ClCompile Include="Encrypter.cpp" />
     <ClCompile Include="FEFolderMonitor.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CRUD.h" />
+    <ClInclude Include="Encrypter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

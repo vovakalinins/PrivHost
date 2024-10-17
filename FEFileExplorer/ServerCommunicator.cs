@@ -13,7 +13,9 @@ namespace FEFileExplorer
     {
         public async Task DownloadFileWithProgress(string filename, Guna2ProgressBar progressBar)
         {
+            Decryptor decryptor = new Decryptor();
             string url = $"http://127.0.0.1:8080/download/{filename}";
+            string downloadPath = Path.Combine("downloads", filename);
 
             using (HttpClient client = new HttpClient())
             {
@@ -25,15 +27,16 @@ namespace FEFileExplorer
                     var downloadedBytes = 0L;
 
                     using (var contentStream = await response.Content.ReadAsStreamAsync())
-                    using (var fileStream = new FileStream(Path.Combine("downloads", filename), FileMode.Create, FileAccess.Write, FileShare.None, 8192, true))
+                    using (var memoryStream = new MemoryStream())
                     {
                         var buffer = new byte[8192];
                         int bytesRead;
                         progressBar.Value = 0;
 
+                        // Download the encrypted file content
                         while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length)) > 0)
                         {
-                            await fileStream.WriteAsync(buffer, 0, bytesRead);
+                            await memoryStream.WriteAsync(buffer, 0, bytesRead);
                             downloadedBytes += bytesRead;
 
                             if (totalBytes != -1)
@@ -41,7 +44,28 @@ namespace FEFileExplorer
                                 progressBar.Value = (int)(downloadedBytes * 100 / totalBytes);
                             }
                         }
+
+                        // Get the full encrypted content (nonce + ciphertext + tag)
+                        byte[] encryptedContent = memoryStream.ToArray();
+
+                        // Ensure the file has at least the nonce (12 bytes), ciphertext, and tag (16 bytes)
+                        if (encryptedContent.Length <= 28)
+                        {
+                            throw new Exception("The encrypted file is invalid or corrupted.");
+                        }
+
+                        // Decrypt the encrypted content using the Decryptor class
+                        byte[] decryptedContent = decryptor.Decrypt(encryptedContent);
+
+                        // Write the decrypted file to disk
+                        File.WriteAllBytes(downloadPath, decryptedContent);
+
+                        Console.WriteLine("File downloaded and decrypted successfully!");
                     }
+                }
+                else
+                {
+                    Console.WriteLine("Failed to download the file.");
                 }
             }
         }
